@@ -20,7 +20,7 @@ imageAugmenter = imageDataAugmenter( ...
 imageSize=[64 64 1];
 
 %  numTrainFiles = 79; 
-[DataTrain,DataValidation,DataTest] = splitEachLabel(Data,0.15,0.15, 'randomize')
+[DataTrain,DataValidation,DataTest] = splitEachLabel(Data,0.7,0.15, 'randomize')
 % [DataTrain, DataValidation] = splitEachLabel(Data, 0.3, 'randomize')
 Traindatasource = augmentedImageSource([64 64 1],DataTrain,'DataAugmentation',imageAugmenter);
 
@@ -65,9 +65,9 @@ layers = [ ...
     classificationLayer]
 
 
-miniBatchSize = 128
+miniBatchSize = 64
 % validationFrequency = floor(numel(DataValidation)/miniBatchSize);
-options=trainingOptions('adam', 'MaxEpochs', 28 ,'MiniBatchSize', miniBatchSize,...
+options=trainingOptions('adam', 'MaxEpochs', 20 ,'MiniBatchSize', miniBatchSize,...
     'initialLearnRate',0.001, 'Shuffle', 'every-epoch', ...
     'ValidationData', DataValidation, 'ValidationFrequency', 2, ...
     'Verbose', 1,  'Plots', 'training-progress',...
@@ -86,8 +86,7 @@ convnet = trainNetwork(Traindatasource, layers, options)
 predLabelsTest = classify(convnet, DataTest);
 labelsTest = DataTest.Labels;
 accuracy = sum(predLabelsTest == labelsTest) / numel(labelsTest)
-output = classify(convnet, a); %czy klasyfikacja nie powinna odbywać się na danych testowych? 
-
+% output = classify(predLabelsTest, a); 
 
  tf1=[]
 for  ii=1:2

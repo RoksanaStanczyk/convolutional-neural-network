@@ -20,8 +20,8 @@ imageAugmenter = imageDataAugmenter( ...
 imageSize=[64 64 1];
 
 %  numTrainFiles = 79; 
-% [DataTrain,DataValidation,DataTest] = dividerand(201,0.7,0.15,0.15)
-[DataTrain, DataValidation] = splitEachLabel(Data, 0.3, 'randomize')
+[DataTrain,DataValidation,DataTest] = splitEachLabel(Data,0.15,0.15, 'randomize')
+% [DataTrain, DataValidation] = splitEachLabel(Data, 0.3, 'randomize')
 Traindatasource = augmentedImageSource([64 64 1],DataTrain,'DataAugmentation',imageAugmenter);
 
 minibatch = preview(Traindatasource);
@@ -78,13 +78,13 @@ options=trainingOptions('adam', 'MaxEpochs', 28 ,'MiniBatchSize', miniBatchSize,
 % convnet = trainNetwork(DataTrain, layers, options)
 convnet = trainNetwork(Traindatasource, layers, options)
 
-YPred = classify(convnet,DataValidation);
-YValidation = DataValidation.Labels;
-accuracy = sum(YPred == YValidation)/numel(YValidation)
-output = classify(convnet, a);
+% YPred = classify(convnet,DataValidation);
+% YValidation = DataValidation.Labels;
+% accuracy = sum(YPred == YValidation)/numel(YValidation)
+% output = classify(convnet, a);
 
-% predLabelsTest = classify(convnet, DataTest);
-% accuracy = sum(predLabelsTest == labelsTest) / numel(labelsTest)
+predLabelsTest = classify(convnet, DataTest);
+accuracy = sum(predLabelsTest == labelsTest) / numel(labelsTest)
 
 
 

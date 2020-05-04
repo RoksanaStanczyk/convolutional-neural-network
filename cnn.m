@@ -84,8 +84,9 @@ convnet = trainNetwork(Traindatasource, layers, options)
 % output = classify(convnet, a);
 
 predLabelsTest = classify(convnet, DataTest);
+labelsTest = DataTest.Labels;
 accuracy = sum(predLabelsTest == labelsTest) / numel(labelsTest)
-
+output = classify(convnet, a); %czy klasyfikacja nie powinna odbywać się na danych testowych? 
 
 
  tf1=[]

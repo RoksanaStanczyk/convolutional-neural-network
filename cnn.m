@@ -1,6 +1,5 @@
 % zdjęcia w zakresie szarości 64x64
-% wykorzystane wszytkie zdjęcia z bazy: 
-%449- zmiany łagodne, 208 - zmiany złośliwe
+% wykorzystane wszytkie zdjęcia z bazy: 449- zmiany łagodne, 208 - zmiany złośliwe
 
 outputFolder=fullfile('Baza');
 Datasetpath= fullfile(outputFolder, 'Guzy');
